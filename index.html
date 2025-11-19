@@ -1041,4 +1041,25 @@
 
         // 스크롤 이벤트로 현재 슬라이드 감지
         slideContainer.addEventListener('scroll', () => {
-           
+            const slideTops = Array.from(slides).map(slide => slide.getBoundingClientRect().top);
+            const closestSlide = slideTops.reduce((closest, top, index) => {
+                return Math.abs(top) < Math.abs(closest) ? top : closest;
+            }, slideTops[0]);
+            
+            currentSlide = slideTops.indexOf(closestSlide);
+            updateSlideNav();
+        });
+
+        // 모바일 메뉴 토글
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSlideNav();
+        });
+    </script>
+</body>
+</html>
