@@ -12,22 +12,6 @@
             box-sizing: border-box;
         }
 
-        /* 굵은 원체(粗圆体) 폰트 적용 */
-        body {
-            font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
-            font-weight: bold;
-            background-color: var(--white);
-            color: var(--dark);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* 제목에 더 강조된 굵은 원체 적용 */
-        h1, h2, h3, .hero-title, .hero-subtitle, .project-title, .skill-name, .nav-links a, .logo {
-            font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Nanum Gothic', sans-serif;
-            font-weight: 900; /* 더 굵게 */
-        }
-
         :root {
             /* 레트로 빈티지 색상 테마 */
             --primary: #D84315;
@@ -38,15 +22,839 @@
             --white: #FFFEF7;
         }
 
-        /* 나머지 CSS 코드는 동일하게 유지... */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--white);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== 역동적 다이나믹 애니메이션 ===== */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%) rotate(-10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%) rotate(10deg);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* ===== 네비게이션 ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 254, 247, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 모바일 메뉴 버튼 */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .menu-toggle:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ===== 슬라이드 컨테이너 ===== */
+        .slide-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            margin-top: 60px;
+        }
+
+        .slide {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        /* ===== 배경 장식 요소 ===== */
+        .bg-decoration {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--primary);
+            top: 10%;
+            right: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--secondary);
+            bottom: 15%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+
+        .square-1 {
+            width: 150px;
+            height: 150px;
+            background: var(--accent);
+            top: 60%;
+            right: 20%;
+            animation: spin 20s linear infinite;
+        }
+
+        /* ===== 섹션 1: 히어로 ===== */
+        #hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: zoomIn 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            padding: 0 1rem;
+            animation: slideInRight 1s ease-out 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        /* ===== 섹션 2: About Me ===== */
+        #about {
+            background-color: var(--light);
+        }
+
+        .about-content {
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 20px 20px 0 var(--primary);
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: rotate(-5deg) scale(1.05);
+            box-shadow: 30px 30px 0 var(--secondary);
+        }
+
+        .about-text {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ===== 섹션 3: Skills ===== */
+        #skills {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills-content {
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skills-content h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            animation: zoomIn 1s ease-out;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.5s;
+            border: 3px solid var(--primary);
+            animation: zoomIn 0.8s ease-out backwards;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+        .skill-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .skill-card:hover {
+            transform: translateY(-20px) rotate(5deg) scale(1.1);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
+            background: var(--accent);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: spin 10s linear infinite;
+        }
+
+        .skill-card:hover .skill-icon {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        .skill-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        /* ===== 섹션 4-7: Projects ===== */
+        .project-slide {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(62, 39, 35, 0.7);
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            color: var(--white);
+            text-align: center;
+            animation: zoomIn 1s ease-out;
+        }
+
+        .project-number {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            letter-spacing: 0.2em;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: slideInRight 0.8s ease-out 0.2s both;
+            transition: transform 0.3s;
+        }
+
+        .project-title:hover {
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        .project-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            animation: slideInLeft 0.8s ease-out 0.4s both;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInRight 0.8s ease-out 0.6s both;
+        }
+
+        .tag {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            transform: translateY(-5px) rotate(5deg) scale(1.1);
+            background: var(--accent);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* ===== 섹션 8: Contact ===== */
+        #contact {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-content h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            animation: zoomIn 1s ease-out;
+        }
+
+        .contact-info {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            animation: slideInLeft 1s ease-out 0.3s both;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            background: var(--white);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.5s;
+            font-weight: bold;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .social-link:nth-child(1) { animation-delay: 0s; }
+        .social-link:nth-child(2) { animation-delay: 0.2s; }
+        .social-link:nth-child(3) { animation-delay: 0.4s; }
+        .social-link:nth-child(4) { animation-delay: 0.6s; }
+
+        .social-link:hover {
+            transform: translateY(-10px) rotate(-5deg) scale(1.2);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
+            background: var(--primary);
+            color: var(--white);
+            animation: none;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* ===== 슬라이드 네비게이션 ===== */
+        .slide-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light);
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slide-dot:hover {
+            transform: scale(1.5) rotate(180deg);
+        }
+
+        .slide-dot.active {
+            background: var(--primary);
+            transform: scale(1.5);
+            animation: pulse 1s infinite;
+        }
+
+        /* ===== 반응형 디자인 ===== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                display: none;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .slide-nav {
+                display: none;
+            }
+
+            .about-text h2,
+            .skills-content h2,
+            .contact-content h2 {
+                font-size: 2rem;
+            }
+
+            .bg-decoration {
+                display: none;
+            }
+        }
+
+        /* ===== 스크롤바 스타일링 ===== */
+        .slide-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide-container::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        .slide-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        .slide-container::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
     </style>
-    
-    <!-- Google Fonts - Noto Sans KR (굵은 원체 계열) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 나머지 HTML 코드는 동일하게 유지... -->
-</body>
-</html>
-</body>
-</html>
+    <!-- 네비게이션 -->
+    <nav>
+        <div class="logo">ZSW</div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" onclick="scrollToSlide(0)">Home</a></li>
+            <li><a href="#about" onclick="scrollToSlide(1)">About</a></li>
+            <li><a href="#skills" onclick="scrollToSlide(2)">Skills</a></li>
+            <li><a href="#projects" onclick="scrollToSlide(3)">Projects</a></li>
+            <li><a href="#contact" onclick="scrollToSlide(7)">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- 슬라이드 네비게이션 -->
+    <div class="slide-nav" id="slideNav"></div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="slide-container" id="slideContainer">
+        
+        <!-- 슬라이드 1: 히어로 섹션 -->
+        <section class="slide" id="hero">
+            <!-- 배경 장식 -->
+            <div class="bg-decoration circle-1"></div>
+            <div class="bg-decoration circle-2"></div>
+            <div class="bg-decoration square-1"></div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">장스웨이</h1>
+                <h2 class="hero-subtitle">Zhang Siwei</h2>
+                <p class="hero-subtitle">Vision Designer</p>
+                <p class="hero-description">
+                    사람이 잠깐이라도 웃거나 편안해지는 순간을 만들어 주는 디자인을 꿈꾸고 있어요.<br>
+                    저만의 속도와 감성으로, 천천히 하지만 꾸준히 나아가고 있습니다.
+                </p>
+                <div class="scroll-indicator" onclick="scrollToSlide(1)">↓</div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 2: About Me -->
+        <section class="slide" id="about">
+            <!-- 배경 장식 -->
+            <div class="bg-decoration circle-1"></div>
+            <div class="bg-decoration square-1"></div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/400x500/F57C00/FFFFFF?text=Profile" alt="장스웨이 프로필">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>안녕하세요, 비전 디자이너 장스웨이입니다.</p>
+                    <p>저는 사람들에게 따뜻함과 편안함을 전하는 디자인을 만들고자 합니다. 
+                    빠르게 변화하는 세상 속에서도 저만의 속도로 꾸준히 성장하며, 
+                    감성적이면서도 실용적인 디자인을 추구합니다.</p>
+                    <p>레트로한 감성과 현대적인 기술을 조화롭게 융합하여, 
+                    사용자에게 특별한 경험을 선사하는 것이 제 목표입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 3: Skills -->
+        <section class="slide" id="skills">
+            <!-- 배경 장식 -->
+            <div class="bg-decoration circle-2"></div>
+            <div class="bg-decoration square-1"></div>
+            
+            <div class="skills-content">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">🎨</div>
+                        <div class="skill-name">Visual Design</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">✏️</div>
+                        <div class="skill-name">Illustration</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📱</div>
+                        <div class="skill-name">UI/UX Design</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🎬</div>
+                        <div class="skill-name">Motion Graphics</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">📸</div>
+                        <div class="skill-name">Photography</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">🖌️</div>
+                        <div class="skill-name">Branding</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 4-7: Projects -->
+        <section class="slide project-slide" style="background-image: url('https://via.placeholder.com/1920x1080/D84315/FFFFFF?text=Project+1');">
+            <div class="project-content">
+                <div class="project-number">PROJECT 01</div>
+                <h2 class="project-title">레트로 카페 브랜딩</h2>
+                <p class="project-description">
+                    70-80년대 감성을 현대적으로 재해석한 카페 브랜드 아이덴티티 프로젝트입니다. 
+                    따뜻한 색감과 빈티지한 타이포그래피로 향수를 불러일으키는 공간을 디자인했습니다.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Branding</span>
+                    <span class="tag">Visual Identity</span>
+                    <span class="tag">Print Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide project-slide" style="background-image: url('https://via.placeholder.com/1920x1080/F57C00/FFFFFF?text=Project+2');">
+            <div class="project-content">
+                <div class="project-number">PROJECT 02</div>
+                <h2 class="project-title">모바일 앱 리디자인</h2>
+                <p class="project-description">
+                    사용자 경험을 중심으로 한 모바일 애플리케이션 UI/UX 리디자인 프로젝트입니다. 
+                    직관적인 인터페이스와 감성적인 비주얼로 사용자의 편의성을 극대화했습니다.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">Mobile Design</span>
+                    <span class="tag">Prototyping</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide project-slide" style="background-image: url('https://via.placeholder.com/1920x1080/FFA726/FFFFFF?text=Project+3');">
+            <div class="project-content">
+                <div class="project-number">PROJECT 03</div>
+                <h2 class="project-title">일러스트 시리즈</h2>
+                <p class="project-description">
+                    일상의 소소한 행복을 포착한 일러스트레이션 시리즈입니다. 
+                    따뜻한 색감과 유머러스한 표현으로 보는 이에게 미소를 선사합니다.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Illustration</span>
+                    <span class="tag">Digital Art</span>
+                    <span class="tag">Character Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide project-slide" style="background-image: url('https://via.placeholder.com/1920x1080/FFE0B2/666666?text=Project+4');">
+            <div class="project-content">
+                <div class="project-number">PROJECT 04</div>
+                <h2 class="project-title">패키지 디자인</h2>
+                <p class="project-description">
+                    지속 가능성과 감성을 담은 친환경 제품 패키지 디자인입니다. 
+                    레트로한 감성과 현대적인 미니멀리즘을 조화롭게 결합했습니다.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Package Design</span>
+                    <span class="tag">Eco-friendly</span>
+                    <span class="tag">Print Design</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 슬라이드 8: Contact -->
+        <section class="slide" id="contact">
+            <!-- 배경 장식 -->
+            <div class="bg-decoration circle-1"></div>
+            <div class="bg-decoration circle-2"></div>
+            
+            <div class="contact-content">
+                <h2>Contact</h2>
+                <p class="contact-info">
+                    함께 작업하고 싶으시거나 궁금한 점이 있으시면<br>
+                    언제든지 연락주세요!
+                </p>
+                <div class="social-links">
+                    <a href="mailto:zhang.siwei@example.com" class="social-link">📧 Email</a>
+                    <a href="https://instagram.com" target="_blank" class="social-link">📷 Instagram</a>
+                    <a href="https://behance.net" target="_blank" class="social-link">🎨 Behance</a>
+                    <a href="https://linkedin.com" target="_blank" class="social-link">💼 LinkedIn</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 장스웨이. Powered by <a href="https://ai.triz.kr" target="_blank">AI Portfolio Workshop</a>.</p>
+    </footer>
+
+    <script>
+        // ===== 슬라이드 네비게이션 기능 =====
+        const slideContainer = document.getElementById('slideContainer');
+        const slides = document.querySelectorAll('.slide');
+        const slideNav = document.getElementById('slideNav');
+        let currentSlide = 0;
+
+        // 슬라이드 네비게이션 도트 생성
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'slide-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => scrollToSlide(index);
+            slideNav.appendChild(dot
