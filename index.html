@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장스웨이 | Vision Designer Portfolio</title>
-    <!-- Google Fonts - Noto Sans KR (굵은 원체 계열) -->
+    <!-- Google Fonts - LINE Seed Sans KR -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== 기본 리셋 및 변수 ===== */
@@ -35,8 +38,14 @@
             line-height: 1.6;
         }
 
+        /* 장스웨이에만 LINE Seed Sans KR Bold 적용 */
+        .hero-title {
+            font-family: 'LINE Seed Sans KR', sans-serif;
+            font-weight: 700;
+        }
+
         /* 제목에 더 강조된 굵은 폰트 적용 */
-        h1, h2, h3, .hero-title, .hero-subtitle, .project-title, .skill-name, .nav-links a, .logo {
+        h2, h3, .hero-subtitle, .project-title, .skill-name, .nav-links a, .logo {
             font-weight: 900; /* Extra Bold */
         }
 
@@ -255,7 +264,6 @@
         .hero-title {
             font-size: 5rem;
             margin-bottom: 1rem;
-            font-weight: 900;
             animation: bounce 2s ease-in-out infinite;
         }
 
@@ -271,21 +279,34 @@
         .hero-description {
             font-size: 1.2rem;
             max-width: 700px;
-            margin: 0 auto;
+            margin: 0 auto 3rem;
             line-height: 1.8;
             padding: 0 1rem;
             animation: slideInRight 1s ease-out 0.6s both;
             font-weight: 700;
         }
 
+        /* 새로운 스크롤 인디케이터 스타일 */
         .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            background-color: var(--light);
+            border-radius: 50%;
             font-size: 2rem;
+            color: var(--primary);
             animation: bounce 2s infinite;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            transform: scale(1.1);
+            background-color: var(--accent);
+            color: var(--white);
         }
 
         /* ===== 섹션 2: About Me ===== */
@@ -813,6 +834,7 @@
                     저만의 속도와 감성으로, 천천히 하지만 꾸준히 나아가고 있습니다.<br>
                     사람이 잠깐이라도 웃거나 편안해지는 순간을 만들어 주는 디자인을 꿈꾸고 있어요.
                 </p>
+                <!-- 화살표를 설명 아래로 이동하고 원형 배경 추가 -->
                 <div class="scroll-indicator" onclick="scrollToSlide(1)">↓</div>
             </div>
         </section>
