@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장스웨이 | Vision Designer Portfolio</title>
+    <!-- Google Fonts - Noto Sans KR (굵은 원체 계열) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* ===== 기본 리셋 및 변수 ===== */
         * {
@@ -22,12 +24,19 @@
             --white: #FFFEF7;
         }
 
+        /* 굵은 Noto Sans KR 폰트 적용 */
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 700; /* Bold */
             background-color: var(--white);
             color: var(--dark);
             overflow-x: hidden;
             line-height: 1.6;
+        }
+
+        /* 제목에 더 강조된 굵은 폰트 적용 */
+        h1, h2, h3, .hero-title, .hero-subtitle, .project-title, .skill-name, .nav-links a, .logo {
+            font-weight: 900; /* Extra Bold */
         }
 
         /* ===== 역동적 다이나믹 애니메이션 ===== */
@@ -118,7 +127,7 @@
 
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 900;
             color: var(--primary);
             animation: pulse 2s infinite;
         }
@@ -134,6 +143,7 @@
             text-decoration: none;
             transition: all 0.3s;
             position: relative;
+            font-weight: 900;
         }
 
         .nav-links a::after {
@@ -244,7 +254,7 @@
         .hero-title {
             font-size: 5rem;
             margin-bottom: 1rem;
-            font-weight: bold;
+            font-weight: 900;
             animation: bounce 2s ease-in-out infinite;
         }
 
@@ -254,6 +264,7 @@
             letter-spacing: 0.3em;
             text-transform: uppercase;
             animation: slideInLeft 1s ease-out 0.3s both;
+            font-weight: 900;
         }
 
         .hero-description {
@@ -263,6 +274,7 @@
             line-height: 1.8;
             padding: 0 1rem;
             animation: slideInRight 1s ease-out 0.6s both;
+            font-weight: 700;
         }
 
         .scroll-indicator {
@@ -314,12 +326,14 @@
             color: var(--primary);
             margin-bottom: 1.5rem;
             animation: float 4s ease-in-out infinite;
+            font-weight: 900;
         }
 
         .about-text p {
             font-size: 1.1rem;
             margin-bottom: 1rem;
             line-height: 1.8;
+            font-weight: 700;
         }
 
         /* ===== 섹션 3: Skills ===== */
@@ -341,6 +355,7 @@
             color: var(--primary);
             margin-bottom: 3rem;
             animation: zoomIn 1s ease-out;
+            font-weight: 900;
         }
 
         .skills-grid {
@@ -383,7 +398,7 @@
 
         .skill-name {
             font-size: 1.3rem;
-            font-weight: bold;
+            font-weight: 900;
             color: var(--dark);
         }
 
@@ -419,6 +434,7 @@
             margin-bottom: 1rem;
             letter-spacing: 0.2em;
             animation: slideInLeft 0.8s ease-out;
+            font-weight: 700;
         }
 
         .project-title {
@@ -426,6 +442,7 @@
             margin-bottom: 1.5rem;
             animation: slideInRight 0.8s ease-out 0.2s both;
             transition: transform 0.3s;
+            font-weight: 900;
         }
 
         .project-title:hover {
@@ -437,6 +454,7 @@
             line-height: 1.8;
             margin-bottom: 2rem;
             animation: slideInLeft 0.8s ease-out 0.4s both;
+            font-weight: 700;
         }
 
         .project-tags {
@@ -454,6 +472,7 @@
             border-radius: 20px;
             font-size: 0.9rem;
             transition: all 0.3s;
+            font-weight: 700;
         }
 
         .tag:hover {
@@ -481,12 +500,14 @@
             font-size: 3rem;
             margin-bottom: 2rem;
             animation: zoomIn 1s ease-out;
+            font-weight: 900;
         }
 
         .contact-info {
             font-size: 1.3rem;
             margin-bottom: 3rem;
             animation: slideInLeft 1s ease-out 0.3s both;
+            font-weight: 700;
         }
 
         .social-links {
@@ -504,7 +525,7 @@
             text-decoration: none;
             font-size: 1.2rem;
             transition: all 0.5s;
-            font-weight: bold;
+            font-weight: 900;
             animation: bounce 2s ease-in-out infinite;
         }
 
@@ -528,12 +549,13 @@
             text-align: center;
             padding: 2rem;
             font-size: 1rem;
+            font-weight: 700;
         }
 
         footer a {
             color: var(--accent);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 900;
             transition: all 0.3s;
         }
 
@@ -857,4 +879,45 @@
             dot.className = 'slide-dot';
             if (index === 0) dot.classList.add('active');
             dot.onclick = () => scrollToSlide(index);
-            slideNav.appendChild(dot
+            slideNav.appendChild(dot);
+        });
+
+        // 슬라이드 이동 함수
+        function scrollToSlide(index) {
+            currentSlide = index;
+            slides[index].scrollIntoView({ behavior: 'smooth' });
+            updateSlideNav();
+        }
+
+        // 슬라이드 네비게이션 업데이트
+        function updateSlideNav() {
+            const dots = document.querySelectorAll('.slide-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // 스크롤 이벤트로 현재 슬라이드 감지
+        slideContainer.addEventListener('scroll', () => {
+            const slideTops = Array.from(slides).map(slide => slide.getBoundingClientRect().top);
+            const closestSlide = slideTops.reduce((closest, top, index) => {
+                return Math.abs(top) < Math.abs(closest) ? top : closest;
+            }, slideTops[0]);
+            
+            currentSlide = slideTops.indexOf(closestSlide);
+            updateSlideNav();
+        });
+
+        // 모바일 메뉴 토글
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSlideNav();
+        });
+    </script>
+</body>
+</html>
